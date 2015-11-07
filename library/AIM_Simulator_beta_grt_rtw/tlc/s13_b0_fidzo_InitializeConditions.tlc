@@ -1,0 +1,62 @@
+%implements s13_b0_fidzo_InitializeConditions "C"
+
+%function InitializeConditions(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+/* InitializeConditions for Atomic SubSystem: '<Root>/Real World' */
+/* InitializeConditions for Atomic SubSystem: '<S1>/DKE Environment ' */
+/* InitializeConditions for Atomic SubSystem: '<S3>/Secundary Body Dynamics' */
+/* InitializeConditions for Atomic SubSystem: '<S22>/TranslationalDynamics2' */
+/* InitializeConditions for DiscreteIntegrator: '<S32>/Discrete-Time Integrator' */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[0] = AIM_Simulator_beta_B.InitialRelativeVelocity[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[1] = AIM_Simulator_beta_B.InitialRelativeVelocity[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[2] = AIM_Simulator_beta_B.InitialRelativeVelocity[2];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRese = 2;
+/* InitializeConditions for DiscreteIntegrator: '<S32>/Discrete-Time Integrator1' */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[0] = AIM_Simulator_beta_B.InitialRelativePosition[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[1] = AIM_Simulator_beta_B.InitialRelativePosition[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[2] = AIM_Simulator_beta_B.InitialRelativePosition[2];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevRes = 2;
+/* End of InitializeConditions for SubSystem: '<S22>/TranslationalDynamics2' */
+/* End of InitializeConditions for SubSystem: '<S3>/Secundary Body Dynamics' */
+
+/* InitializeConditions for Atomic SubSystem: '<S3>/3DoF Rotational Dynamics Secondary Body' */
+/* InitializeConditions for DiscreteIntegrator: '<S19>/Discrete-Time Integrator' */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_c[0] = AIM_Simulator_beta_B.Constant1[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_c[1] = AIM_Simulator_beta_B.Constant1[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_c[2] = AIM_Simulator_beta_B.Constant1[2];
+/* InitializeConditions for DiscreteIntegrator: '<S19>/Discrete-Time Integrator1' */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_b[0] = AIM_Simulator_beta_B.Constant2[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_b[1] = AIM_Simulator_beta_B.Constant2[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_b[2] = AIM_Simulator_beta_B.Constant2[2];
+/* End of InitializeConditions for SubSystem: '<S3>/3DoF Rotational Dynamics Secondary Body' */
+/* End of InitializeConditions for SubSystem: '<S1>/DKE Environment ' */
+
+/* InitializeConditions for Atomic SubSystem: '<S1>/DKE Chaser' */
+/* InitializeConditions for Atomic SubSystem: '<S2>/TranslationalDynamics' */
+/* InitializeConditions for DiscreteIntegrator: '<S8>/Discrete-Time Integrator' */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[0] = AIM_Simulator_beta_P.Chaser.ModelData.v0_SC[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[1] = AIM_Simulator_beta_P.Chaser.ModelData.v0_SC[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[2] = AIM_Simulator_beta_P.Chaser.ModelData.v0_SC[2];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRe_o = 2;
+/* InitializeConditions for DiscreteIntegrator: '<S8>/Discrete-Time Integrator1' */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[0] = AIM_Simulator_beta_P.Chaser.ModelData.x0_SC[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[1] = AIM_Simulator_beta_P.Chaser.ModelData.x0_SC[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[2] = AIM_Simulator_beta_P.Chaser.ModelData.x0_SC[2];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevR_h = 2;
+/* End of InitializeConditions for SubSystem: '<S2>/TranslationalDynamics' */
+/* End of InitializeConditions for SubSystem: '<S1>/DKE Chaser' */
+/* End of InitializeConditions for SubSystem: '<Root>/Real World' */
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void InitializeConditions(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 5, fcnProtoType)>
+%endfunction

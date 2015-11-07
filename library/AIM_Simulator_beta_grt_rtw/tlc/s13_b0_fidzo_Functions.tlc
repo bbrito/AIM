@@ -1,0 +1,200 @@
+%implements s13_b0_fidzo_Functions "C"
+
+%function rt_powd_snf_Fcn0(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T y;
+real_T tmp;
+real_T tmp_0;
+if (rtIsNaN(u0) || rtIsNaN(u1)) {
+    y = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+} else {
+    tmp = fabs(u0);
+    tmp_0 = fabs(u1);
+    if (rtIsInf(u1)) {
+        if (tmp == 1.0) {
+            y = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+        } else if (tmp > 1.0) {
+            if (u1 > 0.0) {
+                y = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+            } else {
+                y = 0.0;
+            }
+        } else if (u1 > 0.0) {
+            y = 0.0;
+        } else {
+            y = %<LibGetMathConstant(LibRealNonFinite("inf"), FcnGetDataTypeIdFromName("double"))>;
+        }
+    } else if (tmp_0 == 0.0) {
+        y = 1.0;
+    } else if (tmp_0 == 1.0) {
+        if (u1 > 0.0) {
+            y = u0;
+        } else {
+            y = 1.0 / u0;
+        }
+    } else if (u1 == 2.0) {
+        y = u0 * u0;
+    } else if ((u1 == 0.5) && (u0 >= 0.0)) {
+        y = sqrt(u0);
+    } else if ((u0 < 0.0) && (u1 > floor(u1))) {
+        y = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+    } else {
+        y = pow(u0, u1);
+    }
+}
+return y;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern real_T rt_powd_snf(\
+%assign comma = ""
+%<comma>real_T u0\
+%assign comma = ", "
+%<comma>real_T u1\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function rt_mldivide_U1d3x3_U2d_9O8lG8ax_Fcn1(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T A[9];
+int32_T r1;
+int32_T r2;
+int32_T r3;
+real_T maxval;
+real_T a21;
+int32_T rtemp;
+memcpy(&A[0], &u0[0], 9U * sizeof(real_T));
+r1 = 0;
+r2 = 1;
+r3 = 2;
+maxval = fabs(u0[0]);
+a21 = fabs(u0[1]);
+if (a21 > maxval) {
+    maxval = a21;
+    r1 = 1;
+    r2 = 0;
+}
+if (fabs(u0[2]) > maxval) {
+    r1 = 2;
+    r2 = 1;
+    r3 = 0;
+}
+A[r2] = u0[r2] / u0[r1];
+A[r3] /= A[r1];
+A[3 + r2] -= A[3 + r1] * A[r2];
+A[3 + r3] -= A[3 + r1] * A[r3];
+A[6 + r2] -= A[6 + r1] * A[r2];
+A[6 + r3] -= A[6 + r1] * A[r3];
+if (fabs(A[3 + r3]) > fabs(A[3 + r2])) {
+    rtemp = r2 + 1;
+    r2 = r3;
+    r3 = rtemp - 1;
+}
+A[3 + r3] /= A[3 + r2];
+A[6 + r3] -= A[3 + r3] * A[6 + r2];
+maxval = u1[r2] - u1[r1] * A[r2];
+a21 = ((u1[r3] - u1[r1] * A[r3]) - A[3 + r3] * maxval) / A[6 + r3];
+maxval -= A[6 + r2] * a21;
+maxval /= A[3 + r2];
+y[0] = ((u1[r1] - A[6 + r1] * a21) - A[3 + r1] * maxval) / A[r1];
+y[1] = maxval;
+y[2] = a21;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern void rt_mldivide_U1d3x3_U2d_9O8lG8ax(\
+%assign comma = ""
+%<comma>const real_T u0[9]\
+%assign comma = ", "
+%<comma>const real_T u1[3]\
+%assign comma = ", "
+%<comma>real_T y[3]\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function rt_roundd_snf_Fcn2(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T y;
+if (fabs(u) < 4.503599627370496E+15) {
+    if (u >= 0.5) {
+        y = floor(u + 0.5);
+    } else if (u > -0.5) {
+        y = u * 0.0;
+    } else {
+        y = ceil(u - 0.5);
+    }
+} else {
+    y = u;
+}
+return y;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern real_T rt_roundd_snf(\
+%assign comma = ""
+%<comma>real_T u\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function rt_modd_snf_Fcn3(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+real_T y;
+real_T tmp;
+if (u1 == 0.0) {
+    y = u0;
+} else if (!((!rtIsNaN(u0)) && (!rtIsInf(u0)) && ((!rtIsNaN(u1)) && (!rtIsInf(u1))))) {
+    y = %<LibGetMathConstant(LibRealNonFinite("nan"), FcnGetDataTypeIdFromName("double"))>;
+} else {
+    tmp = u0 / u1;
+    if (u1 <= floor(u1)) {
+        y = u0 - floor(tmp) * u1;
+    } else if (fabs(tmp - %<(SLibCGCallSubFcn("rt_roundd_snf", ["tmp"], 0, 3, 0))>) <= DBL_EPSILON * fabs(tmp)) {
+        y = 0.0;
+    } else {
+        y = (tmp - floor(tmp)) * u1;
+    }
+}
+return y;
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+extern real_T rt_modd_snf(\
+%assign comma = ""
+%<comma>real_T u0\
+%assign comma = ", "
+%<comma>real_T u1\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 3, fcnProtoType)>
+%return fcnBuff
+%endfunction
+

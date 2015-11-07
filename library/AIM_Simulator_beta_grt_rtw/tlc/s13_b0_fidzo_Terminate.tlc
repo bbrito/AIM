@@ -1,0 +1,75 @@
+%implements s13_b0_fidzo_Terminate "C"
+
+%function Terminate(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcTerminateFcnOfS6B0 = OpaqueTLCBlockFcn("Terminate", 6, 0, 0, 8)
+%assign tlcTerminateFcnOfS12B1 = OpaqueTLCBlockFcn("Terminate", 12, 1, 0, 8)
+%assign tlcTerminateFcnOfS12B2 = OpaqueTLCBlockFcn("Terminate", 12, 2, 0, 8)
+%assign   Terminate_open_RealWorld_13_0 = ""
+%openfile Terminate_open_RealWorld_13_0
+
+/* Terminate for Atomic SubSystem: '<Root>/Real World' */
+%closefile Terminate_open_RealWorld_13_0
+
+%assign    Terminate_body_RealWorld_13_0 = ""
+%openfile  Terminate_body_RealWorld_13_0
+
+%assign   Terminate_open_DKEEnvironment_12_0 = ""
+%openfile Terminate_open_DKEEnvironment_12_0
+
+/* Terminate for Atomic SubSystem: '<S1>/DKE Environment ' */
+%closefile Terminate_open_DKEEnvironment_12_0
+
+%assign    Terminate_body_DKEEnvironment_12_0 = ""
+%openfile  Terminate_body_DKEEnvironment_12_0
+
+%assign   Terminate_open_MainBodyEphemeris_11_2 = ""
+%openfile Terminate_open_MainBodyEphemeris_11_2
+
+/* Terminate for Atomic SubSystem: '<S3>/Main Body Ephemeris' */
+%closefile Terminate_open_MainBodyEphemeris_11_2
+
+%assign    Terminate_body_MainBodyEphemeris_11_2 = ""
+%openfile  Terminate_body_MainBodyEphemeris_11_2
+
+%<tlcTerminateFcnOfS6B0>\
+%closefile Terminate_body_MainBodyEphemeris_11_2
+
+%assign    Terminate_close_MainBodyEphemeris_11_2 = ""
+%openfile  Terminate_close_MainBodyEphemeris_11_2
+
+/* End of Terminate for SubSystem: '<S3>/Main Body Ephemeris' */
+%closefile Terminate_close_MainBodyEphemeris_11_2
+%<SLibCG_DumpSSCode(Terminate_open_MainBodyEphemeris_11_2, Terminate_body_MainBodyEphemeris_11_2, Terminate_close_MainBodyEphemeris_11_2)>
+
+%closefile Terminate_body_DKEEnvironment_12_0
+
+%assign    Terminate_close_DKEEnvironment_12_0 = ""
+%openfile  Terminate_close_DKEEnvironment_12_0
+
+/* End of Terminate for SubSystem: '<S1>/DKE Environment ' */
+%closefile Terminate_close_DKEEnvironment_12_0
+%<SLibCG_DumpSSCode(Terminate_open_DKEEnvironment_12_0, Terminate_body_DKEEnvironment_12_0, Terminate_close_DKEEnvironment_12_0)>
+
+%<tlcTerminateFcnOfS12B1>\
+%<tlcTerminateFcnOfS12B2>\
+%closefile Terminate_body_RealWorld_13_0
+
+%assign    Terminate_close_RealWorld_13_0 = ""
+%openfile  Terminate_close_RealWorld_13_0
+
+/* End of Terminate for SubSystem: '<Root>/Real World' */
+%closefile Terminate_close_RealWorld_13_0
+%<SLibCG_DumpSSCode(Terminate_open_RealWorld_13_0, Terminate_body_RealWorld_13_0, Terminate_close_RealWorld_13_0)>
+
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Terminate(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 8, fcnProtoType)>
+%endfunction

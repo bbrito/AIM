@@ -1,0 +1,110 @@
+%implements s13_b0_fidzo_Start "C"
+
+%function Start(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign tlcStartFcnOfS10B2 = OpaqueTLCBlockFcn("Start", 10, 2, 0, 4)
+%assign tlcStartFcnOfS8B0 = OpaqueTLCBlockFcn("Start", 8, 0, 0, 4)
+%assign tlcStartFcnOfS11B1 = OpaqueTLCBlockFcn("Start", 11, 1, 0, 4)
+%assign tlcStartFcnOfS6B0 = OpaqueTLCBlockFcn("Start", 6, 0, 0, 4)
+%assign tlcStartFcnOfS11B6 = OpaqueTLCBlockFcn("Start", 11, 6, 0, 4)
+%assign tlcStartFcnOfS12B1 = OpaqueTLCBlockFcn("Start", 12, 1, 0, 4)
+%assign tlcStartFcnOfS12B2 = OpaqueTLCBlockFcn("Start", 12, 2, 0, 4)
+%assign tlcStartFcnOfS3B2 = OpaqueTLCBlockFcn("Start", 3, 2, 0, 4)
+/* Start for Atomic SubSystem: '<Root>/Real World' */
+/* Start for Atomic SubSystem: '<S1>/DKE Environment ' */
+/* Start for Atomic SubSystem: '<S3>/Secundary Body Dynamics' */
+/* Start for Constant: '<S22>/Initial Relative Position' */
+AIM_Simulator_beta_B.InitialRelativePosition[0] = AIM_Simulator_beta_P.InitialRelativePosition_Value[0];
+AIM_Simulator_beta_B.InitialRelativePosition[1] = AIM_Simulator_beta_P.InitialRelativePosition_Value[1];
+AIM_Simulator_beta_B.InitialRelativePosition[2] = AIM_Simulator_beta_P.InitialRelativePosition_Value[2];
+/* Start for Constant: '<S22>/Initial Relative Velocity' */
+AIM_Simulator_beta_B.InitialRelativeVelocity[0] = AIM_Simulator_beta_P.InitialRelativeVelocity_Value[0];
+AIM_Simulator_beta_B.InitialRelativeVelocity[1] = AIM_Simulator_beta_P.InitialRelativeVelocity_Value[1];
+AIM_Simulator_beta_B.InitialRelativeVelocity[2] = AIM_Simulator_beta_P.InitialRelativeVelocity_Value[2];
+%<tlcStartFcnOfS10B2>\
+%assign   Start_open_SphericalGravityAcceleration_d_10_6 = ""
+%openfile Start_open_SphericalGravityAcceleration_d_10_6
+
+/* Start for Atomic SubSystem: '<S22>/Spherical Gravity Acceleration' */
+%closefile Start_open_SphericalGravityAcceleration_d_10_6
+
+%assign    Start_body_SphericalGravityAcceleration_d_10_6 = ""
+%openfile  Start_body_SphericalGravityAcceleration_d_10_6
+
+%<tlcStartFcnOfS8B0>\
+%closefile Start_body_SphericalGravityAcceleration_d_10_6
+
+%assign    Start_close_SphericalGravityAcceleration_d_10_6 = ""
+%openfile  Start_close_SphericalGravityAcceleration_d_10_6
+
+/* End of Start for SubSystem: '<S22>/Spherical Gravity Acceleration' */
+%closefile Start_close_SphericalGravityAcceleration_d_10_6
+%<SLibCG_DumpSSCode(Start_open_SphericalGravityAcceleration_d_10_6, Start_body_SphericalGravityAcceleration_d_10_6, Start_close_SphericalGravityAcceleration_d_10_6)>
+
+/* End of Start for SubSystem: '<S3>/Secundary Body Dynamics' */
+%<tlcStartFcnOfS11B1>\
+%assign   Start_open_MainBodyEphemeris_11_2 = ""
+%openfile Start_open_MainBodyEphemeris_11_2
+
+/* Start for Atomic SubSystem: '<S3>/Main Body Ephemeris' */
+%closefile Start_open_MainBodyEphemeris_11_2
+
+%assign    Start_body_MainBodyEphemeris_11_2 = ""
+%openfile  Start_body_MainBodyEphemeris_11_2
+
+%<tlcStartFcnOfS6B0>\
+%closefile Start_body_MainBodyEphemeris_11_2
+
+%assign    Start_close_MainBodyEphemeris_11_2 = ""
+%openfile  Start_close_MainBodyEphemeris_11_2
+
+/* End of Start for SubSystem: '<S3>/Main Body Ephemeris' */
+%closefile Start_close_MainBodyEphemeris_11_2
+%<SLibCG_DumpSSCode(Start_open_MainBodyEphemeris_11_2, Start_body_MainBodyEphemeris_11_2, Start_close_MainBodyEphemeris_11_2)>
+
+
+/* Start for Constant: '<S3>/Constant1' */
+AIM_Simulator_beta_B.Constant1[0] = AIM_Simulator_beta_P.Constant1_Value[0];
+AIM_Simulator_beta_B.Constant1[1] = AIM_Simulator_beta_P.Constant1_Value[1];
+AIM_Simulator_beta_B.Constant1[2] = AIM_Simulator_beta_P.Constant1_Value[2];
+/* Start for Constant: '<S3>/Constant2' */
+AIM_Simulator_beta_B.Constant2[0] = AIM_Simulator_beta_P.Constant2_Value[0];
+AIM_Simulator_beta_B.Constant2[1] = AIM_Simulator_beta_P.Constant2_Value[1];
+AIM_Simulator_beta_B.Constant2[2] = AIM_Simulator_beta_P.Constant2_Value[2];
+%if !WHITE_SPACE(tlcStartFcnOfS11B6)
+%<tlcStartFcnOfS11B6>\
+/* End of Start for SubSystem: '<S1>/DKE Environment ' */
+%endif
+%<tlcStartFcnOfS12B1>\
+%<tlcStartFcnOfS12B2>\
+%assign   Start_open_DKEChaser_12_3 = ""
+%openfile Start_open_DKEChaser_12_3
+
+/* Start for Atomic SubSystem: '<S1>/DKE Chaser' */
+%closefile Start_open_DKEChaser_12_3
+
+%assign    Start_body_DKEChaser_12_3 = ""
+%openfile  Start_body_DKEChaser_12_3
+
+%<tlcStartFcnOfS3B2>\
+%closefile Start_body_DKEChaser_12_3
+
+%assign    Start_close_DKEChaser_12_3 = ""
+%openfile  Start_close_DKEChaser_12_3
+
+/* End of Start for SubSystem: '<S1>/DKE Chaser' */
+%closefile Start_close_DKEChaser_12_3
+%<SLibCG_DumpSSCode(Start_open_DKEChaser_12_3, Start_body_DKEChaser_12_3, Start_close_DKEChaser_12_3)>
+
+/* End of Start for SubSystem: '<Root>/Real World' */
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Start(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 4, fcnProtoType)>
+%endfunction

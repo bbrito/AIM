@@ -1,0 +1,473 @@
+%implements s13_b0_fidzo_Outputs "C"
+
+%function OutputsForTID(block, system, tid) Output
+%if tid == 0
+%assign ::GlobalCurrentTID = 0
+%<SLibCGIRAccessLocalVar(1, 0)> %% rtb_v_CB
+%<SLibCGIRAccessLocalVar(2, 0)> %% rtb_x_CB
+%<SLibCGIRAccessLocalVar(6, 0)> %% rtb_Gain
+%<SLibCGIRAccessLocalVar(0, 0)> %% rtb_Sum
+%<SLibCGIRAccessLocalVar(15, 0)> %% rtb_vel
+%<SLibCGIRAccessLocalVar(16, 0)> %% rtb_pos
+%<SLibCGIRAccessLocalVar(8, 0)> %% rtb_Trajectory
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T c20;
+real_T c22;
+real_T c40;
+real_T c42;
+real_T c44;
+real_T r;
+real_T delta;
+real_T lambda;
+real_T P40;
+real_T P42;
+real_T P44;
+real_T grav_gradient_r;
+real_T grav_gradient_delta;
+real_T grav_gradient_lambda;
+real_T rtb_MathFunction;
+real_T rtb_MathFunction1_idx_0;
+real_T rtb_MathFunction1_idx_1;
+%closefile localVarDecl
+%assign tlcOutputsFcnOfS10B2 = OpaqueTLCBlockFcn("Outputs", 10, 2, 0, 6)
+%assign tlcOutputsFcnOfS8B0 = OpaqueTLCBlockFcn("Outputs", 8, 0, 0, 6)
+%assign tlcOutputsFcnOfS11B1 = OpaqueTLCBlockFcn("Outputs", 11, 1, 0, 6)
+%assign tlcOutputsFcnOfS6B0 = OpaqueTLCBlockFcn("Outputs", 6, 0, 0, 6)
+%assign tlcOutputsFcnOfS12B1 = OpaqueTLCBlockFcn("Outputs", 12, 1, 0, 6)
+%assign tlcOutputsFcnOfS12B2 = OpaqueTLCBlockFcn("Outputs", 12, 2, 0, 6)
+%assign tlcOutputsFcnOfS3B2 = OpaqueTLCBlockFcn("Outputs", 3, 2, 0, 6)
+/* Outputs for Atomic SubSystem: '<Root>/Real World' */
+/* Outputs for Atomic SubSystem: '<S1>/DKE Environment ' */
+/* Outputs for Atomic SubSystem: '<S3>/Secundary Body Dynamics' */
+/* Constant: '<S22>/Initial Relative Position' */
+AIM_Simulator_beta_B.InitialRelativePosition[0] = AIM_Simulator_beta_P.InitialRelativePosition_Value[0];
+AIM_Simulator_beta_B.InitialRelativePosition[1] = AIM_Simulator_beta_P.InitialRelativePosition_Value[1];
+AIM_Simulator_beta_B.InitialRelativePosition[2] = AIM_Simulator_beta_P.InitialRelativePosition_Value[2];
+/* Constant: '<S22>/Initial Relative Velocity' */
+AIM_Simulator_beta_B.InitialRelativeVelocity[0] = AIM_Simulator_beta_P.InitialRelativeVelocity_Value[0];
+AIM_Simulator_beta_B.InitialRelativeVelocity[1] = AIM_Simulator_beta_P.InitialRelativeVelocity_Value[1];
+AIM_Simulator_beta_B.InitialRelativeVelocity[2] = AIM_Simulator_beta_P.InitialRelativeVelocity_Value[2];
+/* Outputs for Atomic SubSystem: '<S22>/TranslationalDynamics2' */
+/* DiscreteIntegrator: '<S32>/Discrete-Time Integrator' incorporates:
+ *  Constant: '<S22>/Constant'
+ */
+if ((AIM_Simulator_beta_P.Constant_Value_n > 0.0) && (AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRese <= 0)) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[0] = AIM_Simulator_beta_B.InitialRelativeVelocity[0];
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[1] = AIM_Simulator_beta_B.InitialRelativeVelocity[1];
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[2] = AIM_Simulator_beta_B.InitialRelativeVelocity[2];
+}
+rtb_v_CB[0] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[0];
+rtb_v_CB[1] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[1];
+rtb_v_CB[2] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[2];
+/* End of DiscreteIntegrator: '<S32>/Discrete-Time Integrator' */
+
+/* DiscreteIntegrator: '<S32>/Discrete-Time Integrator1' incorporates:
+ *  Constant: '<S22>/Constant'
+ */
+if ((AIM_Simulator_beta_P.Constant_Value_n > 0.0) && (AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevRes <= 0)) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[0] = AIM_Simulator_beta_B.InitialRelativePosition[0];
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[1] = AIM_Simulator_beta_B.InitialRelativePosition[1];
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[2] = AIM_Simulator_beta_B.InitialRelativePosition[2];
+}
+rtb_x_CB[0] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[0];
+rtb_x_CB[1] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[1];
+rtb_x_CB[2] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[2];
+/* End of DiscreteIntegrator: '<S32>/Discrete-Time Integrator1' */
+/* End of Outputs for SubSystem: '<S22>/TranslationalDynamics2' */
+%<tlcOutputsFcnOfS10B2>\
+/* Outputs for Atomic SubSystem: '<S22>/Spherical Gravity Acceleration' */
+/* Sum: '<S34>/Sum of Elements' incorporates:
+ *  Math: '<S34>/Math Function1'
+ */
+/* MATLAB Function 'Ellipsoid Gravity Acceleration': '<S30>:1' */
+/* '<S30>:1:3' */
+/* '<S30>:1:4' */
+/* '<S30>:1:5' */
+/* '<S30>:1:7' */
+/* '<S30>:1:8' */
+/* '<S30>:1:9' */
+/* Gravitational coeficients */
+/* '<S30>:1:12' */
+/* '<S30>:1:13' */
+/* '<S30>:1:14' */
+/* '<S30>:1:15' */
+/* '<S30>:1:16' */
+/* Gravitational parameter of the body */
+/* Spherical coordinates */
+/* '<S30>:1:22' */
+/* '<S30>:1:23' */
+/* '<S30>:1:24' */
+/* Associated legendre functions */
+/* Necessary to intialize varibles because of extrinsic function */
+/* '<S30>:1:30' */
+/* '<S30>:1:31' */
+/* '<S30>:1:32' */
+/* '<S30>:1:33' */
+/* '<S30>:1:35' */
+/* '<S30>:1:36' */
+/* '<S30>:1:37' */
+/* Potencial calculation */
+/* '<S30>:1:41' */
+/* '<S30>:1:43' */
+/* '<S30>:1:45' */
+/* '<S30>:1:47' */
+/* '<S30>:1:49' */
+/* '<S30>:1:51' */
+/* '<S30>:1:53' */
+rtb_MathFunction = (rtb_x_CB[0] * rtb_x_CB[0] + rtb_x_CB[1] * rtb_x_CB[1]) + rtb_x_CB[2] * rtb_x_CB[2];
+/* Math: '<S34>/Math Function'
+ *
+ * About '<S34>/Math Function':
+ *  Operator: sqrt
+ */
+if (rtb_MathFunction < 0.0) {
+    rtb_MathFunction = -sqrt(fabs(rtb_MathFunction));
+} else {
+    rtb_MathFunction = sqrt(rtb_MathFunction);
+}
+/* End of Math: '<S34>/Math Function' */
+
+/* Product: '<S31>/Product of Elements' */
+rtb_MathFunction *= rtb_MathFunction * rtb_MathFunction;
+/* Gain: '<S31>/Gain' incorporates:
+ *  Product: '<S31>/Product of Elements1'
+ */
+rtb_Gain[0] = rtb_x_CB[0] / rtb_MathFunction * -AIM_Simulator_beta_P.SphericalGravityAcceleration__o;
+rtb_Gain[1] = rtb_x_CB[1] / rtb_MathFunction * -AIM_Simulator_beta_P.SphericalGravityAcceleration__o;
+rtb_Gain[2] = rtb_x_CB[2] / rtb_MathFunction * -AIM_Simulator_beta_P.SphericalGravityAcceleration__o;
+%if !WHITE_SPACE(tlcOutputsFcnOfS8B0)
+%<tlcOutputsFcnOfS8B0>\
+/* End of Outputs for SubSystem: '<S22>/Spherical Gravity Acceleration' */
+
+%endif
+/* Update for Atomic SubSystem: '<S22>/TranslationalDynamics2' */
+/* Update for DiscreteIntegrator: '<S32>/Discrete-Time Integrator' incorporates:
+ *  Constant: '<S22>/Constant'
+ */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[0] += AIM_Simulator_beta_P.DiscreteTimeIntegrator_gainva_h * rtb_Gain[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[1] += AIM_Simulator_beta_P.DiscreteTimeIntegrator_gainva_h * rtb_Gain[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE[2] += AIM_Simulator_beta_P.DiscreteTimeIntegrator_gainva_h * rtb_Gain[2];
+if (AIM_Simulator_beta_P.Constant_Value_n > 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRese = 1;
+} else if (AIM_Simulator_beta_P.Constant_Value_n < 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRese = -1;
+} else if (AIM_Simulator_beta_P.Constant_Value_n == 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRese = 0;
+} else {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRese = 2;
+}
+/* End of Update for DiscreteIntegrator: '<S32>/Discrete-Time Integrator' */
+
+/* Update for DiscreteIntegrator: '<S32>/Discrete-Time Integrator1' incorporates:
+ *  Constant: '<S22>/Constant'
+ */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[0] += AIM_Simulator_beta_P.DiscreteTimeIntegrator1_gainv_i * rtb_v_CB[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[1] += AIM_Simulator_beta_P.DiscreteTimeIntegrator1_gainv_i * rtb_v_CB[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTATE[2] += AIM_Simulator_beta_P.DiscreteTimeIntegrator1_gainv_i * rtb_v_CB[2];
+if (AIM_Simulator_beta_P.Constant_Value_n > 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevRes = 1;
+} else if (AIM_Simulator_beta_P.Constant_Value_n < 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevRes = -1;
+} else if (AIM_Simulator_beta_P.Constant_Value_n == 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevRes = 0;
+} else {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevRes = 2;
+}
+/* End of Update for DiscreteIntegrator: '<S32>/Discrete-Time Integrator1' */
+/* End of Update for SubSystem: '<S22>/TranslationalDynamics2' */
+/* End of Outputs for SubSystem: '<S3>/Secundary Body Dynamics' */
+%<tlcOutputsFcnOfS11B1>\
+%assign   Outputs_open_MainBodyEphemeris_11_2 = ""
+%openfile Outputs_open_MainBodyEphemeris_11_2
+
+/* Outputs for Atomic SubSystem: '<S3>/Main Body Ephemeris' */
+%closefile Outputs_open_MainBodyEphemeris_11_2
+
+%assign    Outputs_body_MainBodyEphemeris_11_2 = ""
+%openfile  Outputs_body_MainBodyEphemeris_11_2
+
+%<tlcOutputsFcnOfS6B0>\
+%closefile Outputs_body_MainBodyEphemeris_11_2
+
+%assign    Outputs_close_MainBodyEphemeris_11_2 = ""
+%openfile  Outputs_close_MainBodyEphemeris_11_2
+
+/* End of Outputs for SubSystem: '<S3>/Main Body Ephemeris' */
+%closefile Outputs_close_MainBodyEphemeris_11_2
+%<SLibCG_DumpSSCode(Outputs_open_MainBodyEphemeris_11_2, Outputs_body_MainBodyEphemeris_11_2, Outputs_close_MainBodyEphemeris_11_2)>
+
+
+/* Sum: '<S3>/Sum' */
+rtb_Sum[0] = rtb_Trajectory[0] + rtb_v_CB[0];
+rtb_Sum[1] = rtb_Trajectory[1] + rtb_v_CB[1];
+rtb_Sum[2] = rtb_Trajectory[2] + rtb_v_CB[2];
+rtb_Sum[3] = rtb_Trajectory[3] + rtb_x_CB[0];
+rtb_Sum[4] = rtb_Trajectory[4] + rtb_x_CB[1];
+rtb_Sum[5] = rtb_Trajectory[5] + rtb_x_CB[2];
+/* End of Outputs for SubSystem: '<S1>/DKE Environment ' */
+%<tlcOutputsFcnOfS12B1>\
+%<tlcOutputsFcnOfS12B2>\
+/* Outputs for Atomic SubSystem: '<S1>/DKE Chaser' */
+/* Outputs for Atomic SubSystem: '<S2>/TranslationalDynamics' */
+/* DiscreteIntegrator: '<S8>/Discrete-Time Integrator' incorporates:
+ *  Constant: '<S2>/Constant'
+ */
+if ((AIM_Simulator_beta_P.Constant_Value > 0.0) && (AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRe_o <= 0)) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[0] = AIM_Simulator_beta_P.Chaser.ModelData.v0_SC[0];
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[1] = AIM_Simulator_beta_P.Chaser.ModelData.v0_SC[1];
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[2] = AIM_Simulator_beta_P.Chaser.ModelData.v0_SC[2];
+}
+rtb_vel[0] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[0];
+rtb_vel[1] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[1];
+rtb_vel[2] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[2];
+/* End of DiscreteIntegrator: '<S8>/Discrete-Time Integrator' */
+
+/* DiscreteIntegrator: '<S8>/Discrete-Time Integrator1' incorporates:
+ *  Constant: '<S2>/Constant'
+ */
+if ((AIM_Simulator_beta_P.Constant_Value > 0.0) && (AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevR_h <= 0)) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[0] = AIM_Simulator_beta_P.Chaser.ModelData.x0_SC[0];
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[1] = AIM_Simulator_beta_P.Chaser.ModelData.x0_SC[1];
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[2] = AIM_Simulator_beta_P.Chaser.ModelData.x0_SC[2];
+}
+rtb_pos[0] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[0];
+rtb_pos[1] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[1];
+rtb_pos[2] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[2];
+/* End of DiscreteIntegrator: '<S8>/Discrete-Time Integrator1' */
+/* End of Outputs for SubSystem: '<S2>/TranslationalDynamics' */
+%<tlcOutputsFcnOfS3B2>\
+/* Sum: '<S2>/Add1' */
+rtb_MathFunction1_idx_0 = rtb_pos[0] + rtb_x_CB[0];
+rtb_MathFunction1_idx_1 = rtb_pos[1] + rtb_x_CB[1];
+rtb_MathFunction = rtb_pos[2] + rtb_x_CB[2];
+/* MATLAB Function: '<S2>/Ellipsoid Gravity Acceleration' */
+/* MATLAB Function 'Ellipsoid Gravity Acceleration': '<S4>:1' */
+/* '<S4>:1:3' */
+/* '<S4>:1:4' */
+/* '<S4>:1:5' */
+/* '<S4>:1:7' */
+/* '<S4>:1:8' */
+/* '<S4>:1:9' */
+/* Gravitational coeficients */
+/* '<S4>:1:12' */
+c20 = (AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[1] * AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[1] - (AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[0] * AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[0] + AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[2] * AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[2]) / 2.0) * (1.0 / (AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 * AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 * 5.0));
+/* '<S4>:1:13' */
+c22 = 1.0 / (AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 * AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 * 20.0) * (AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[0] * AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[0] - AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[2] * AIM_Simulator_beta_P.EllipsoidGravityAcceleration_di[2]);
+/* '<S4>:1:14' */
+c40 = (c22 * c22 * 2.0 + c20 * c20) * 2.1428571428571428;
+/* '<S4>:1:15' */
+c42 = 0.7142857142857143 * c20 * c22;
+/* '<S4>:1:16' */
+c44 = c22 * c22 * 0.17857142857142858;
+/* Gravitational parameter of the body */
+/* Spherical coordinates */
+/* '<S4>:1:22' */
+r = sqrt((rtb_MathFunction1_idx_0 * rtb_MathFunction1_idx_0 + rtb_MathFunction1_idx_1 * rtb_MathFunction1_idx_1) + rtb_MathFunction * rtb_MathFunction);
+/* '<S4>:1:23' */
+delta = asin(rtb_MathFunction / r);
+/* '<S4>:1:24' */
+lambda = atan(rtb_MathFunction1_idx_1 / rtb_MathFunction1_idx_0);
+/* Associated legendre functions */
+/* Necessary to intialize varibles because of extrinsic function */
+/* '<S4>:1:30' */
+grav_gradient_r = sin(delta);
+/* '<S4>:1:31' */
+rtb_MathFunction1_idx_0 = sin(delta);
+/* '<S4>:1:32' */
+rtb_MathFunction = sin(delta);
+rtb_MathFunction1_idx_1 = (1.0 - rtb_MathFunction * rtb_MathFunction) * 3.0;
+/* '<S4>:1:33' */
+rtb_MathFunction = sin(delta);
+P40 = ((35.0 * %<(SLibCGCallSubFcn("rt_powd_snf", ["sin(delta)", "4.0"], 0, 6, 7))> - rtb_MathFunction * rtb_MathFunction * 30.0) + 3.0) * 0.125;
+/* '<S4>:1:35' */
+rtb_MathFunction = sin(delta);
+grav_gradient_lambda = sin(delta);
+P42 = (rtb_MathFunction * rtb_MathFunction * 7.0 - 1.0) * 7.5 * (1.0 - grav_gradient_lambda * grav_gradient_lambda);
+/* '<S4>:1:36' */
+grav_gradient_delta = sin(delta);
+/* '<S4>:1:37' */
+rtb_MathFunction = sin(delta);
+rtb_MathFunction = 1.0 - rtb_MathFunction * rtb_MathFunction;
+P44 = rtb_MathFunction * rtb_MathFunction * 105.0;
+/* Potencial calculation */
+/* '<S4>:1:41' */
+rtb_MathFunction = AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r;
+grav_gradient_lambda = AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r;
+grav_gradient_r = ((((((grav_gradient_r * grav_gradient_r * 3.0 - 1.0) * 0.5 * (rtb_MathFunction * rtb_MathFunction * 3.0) * c20 + 1.0) + c22 * 3.0 * (grav_gradient_lambda * grav_gradient_lambda) * rtb_MathFunction1_idx_1 * cos(2.0 * lambda)) + c40 * 5.0 * %<(SLibCGCallSubFcn("rt_powd_snf", ["AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r", "4.0"], 0, 6, 4))> * P40) + c42 * 5.0 * %<(SLibCGCallSubFcn("rt_powd_snf", ["AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r", "4.0"], 0, 6, 5))> * P42 * cos(2.0 * lambda)) + c44 * 5.0 * %<(SLibCGCallSubFcn("rt_powd_snf", ["AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r", "4.0"], 0, 6, 6))> * P44 * cos(4.0 * lambda)) * -(AIM_Simulator_beta_P.EllipsoidGravityAcceleration_u / (r * r));
+/* '<S4>:1:43' */
+rtb_MathFunction = AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r;
+grav_gradient_delta = (((%<(SLibCGCallSubFcn("rt_powd_snf", ["sqrt(1.0 - grav_gradient_delta * grav_gradient_delta)", "3.0"], 0, 6, 2))> * (-105.0 * sin(delta)) - 2.0 * tan(delta) * P42) * c42 * cos(2.0 * lambda) + P40 * c40) * %<(SLibCGCallSubFcn("rt_powd_snf", ["AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r", "4.0"], 0, 6, 3))> + (sqrt(1.0 - rtb_MathFunction1_idx_0 * rtb_MathFunction1_idx_0) * (-3.0 * sin(delta)) * c20 - 2.0 * tan(delta) * rtb_MathFunction1_idx_1 * c22 * cos(2.0 * lambda)) * (rtb_MathFunction * rtb_MathFunction)) * (AIM_Simulator_beta_P.EllipsoidGravityAcceleration_u / r);
+/* '<S4>:1:45' */
+rtb_MathFunction = AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r;
+grav_gradient_lambda = ((rtb_MathFunction * rtb_MathFunction * 2.0 * rtb_MathFunction1_idx_1 * c22 * sin(2.0 * lambda) + %<(SLibCGCallSubFcn("rt_powd_snf", ["AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r", "4.0"], 0, 6, 0))> * 4.0 * P42 * c42 * sin(2.0 * lambda)) + %<(SLibCGCallSubFcn("rt_powd_snf", ["AIM_Simulator_beta_P.EllipsoidGravityAcceleration_r0 / r", "4.0"], 0, 6, 1))> * 4.0 * P44 * c44 * sin(4.0 * lambda)) * -(AIM_Simulator_beta_P.EllipsoidGravityAcceleration_u / r);
+/* Outputs for Atomic SubSystem: '<S2>/Spherical Gravity Acceleration' */
+/* Sum: '<S17>/Sum of Elements' incorporates:
+ *  Math: '<S17>/Math Function1'
+ */
+/* '<S4>:1:47' */
+/* '<S4>:1:49' */
+/* '<S4>:1:51' */
+/* '<S4>:1:53' */
+rtb_MathFunction = (rtb_pos[0] * rtb_pos[0] + rtb_pos[1] * rtb_pos[1]) + rtb_pos[2] * rtb_pos[2];
+/* Math: '<S17>/Math Function'
+ *
+ * About '<S17>/Math Function':
+ *  Operator: sqrt
+ */
+if (rtb_MathFunction < 0.0) {
+    rtb_MathFunction = -sqrt(fabs(rtb_MathFunction));
+} else {
+    rtb_MathFunction = sqrt(rtb_MathFunction);
+}
+/* End of Math: '<S17>/Math Function' */
+
+/* Product: '<S7>/Product of Elements' */
+rtb_MathFunction *= rtb_MathFunction * rtb_MathFunction;
+/* Update for Atomic SubSystem: '<S2>/TranslationalDynamics' */
+/* Update for DiscreteIntegrator: '<S8>/Discrete-Time Integrator' incorporates:
+ *  Constant: '<S2>/Constant'
+ *  Gain: '<S7>/Gain'
+ *  MATLAB Function: '<S2>/Ellipsoid Gravity Acceleration'
+ *  Product: '<S7>/Product of Elements1'
+ *  Sum: '<S2>/Add'
+ */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[0] += (((cos(delta) * cos(lambda) * grav_gradient_r - sin(delta) * cos(lambda) / r * grav_gradient_delta) - sin(lambda) / cos(delta) / r * grav_gradient_lambda) + rtb_pos[0] / rtb_MathFunction * -AIM_Simulator_beta_P.SphericalGravityAcceleration_u) * AIM_Simulator_beta_P.DiscreteTimeIntegrator_gainval;
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[1] += (((cos(delta) * sin(lambda) * grav_gradient_r - sin(delta) * sin(lambda) / r * grav_gradient_delta) - cos(lambda) / cos(delta) / r * grav_gradient_lambda) + rtb_pos[1] / rtb_MathFunction * -AIM_Simulator_beta_P.SphericalGravityAcceleration_u) * AIM_Simulator_beta_P.DiscreteTimeIntegrator_gainval;
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_n[2] += ((sin(delta) * grav_gradient_r - cos(delta) / r * grav_gradient_delta) + rtb_pos[2] / rtb_MathFunction * -AIM_Simulator_beta_P.SphericalGravityAcceleration_u) * AIM_Simulator_beta_P.DiscreteTimeIntegrator_gainval;
+/* End of Outputs for SubSystem: '<S2>/Spherical Gravity Acceleration' */
+if (AIM_Simulator_beta_P.Constant_Value > 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRe_o = 1;
+} else if (AIM_Simulator_beta_P.Constant_Value < 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRe_o = -1;
+} else if (AIM_Simulator_beta_P.Constant_Value == 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRe_o = 0;
+} else {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator_PrevRe_o = 2;
+}
+/* End of Update for DiscreteIntegrator: '<S8>/Discrete-Time Integrator' */
+
+/* Update for DiscreteIntegrator: '<S8>/Discrete-Time Integrator1' incorporates:
+ *  Constant: '<S2>/Constant'
+ */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[0] += AIM_Simulator_beta_P.DiscreteTimeIntegrator1_gainval * rtb_vel[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[1] += AIM_Simulator_beta_P.DiscreteTimeIntegrator1_gainval * rtb_vel[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_d[2] += AIM_Simulator_beta_P.DiscreteTimeIntegrator1_gainval * rtb_vel[2];
+if (AIM_Simulator_beta_P.Constant_Value > 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevR_h = 1;
+} else if (AIM_Simulator_beta_P.Constant_Value < 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevR_h = -1;
+} else if (AIM_Simulator_beta_P.Constant_Value == 0.0) {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevR_h = 0;
+} else {
+    AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_PrevR_h = 2;
+}
+/* End of Update for DiscreteIntegrator: '<S8>/Discrete-Time Integrator1' */
+/* End of Update for SubSystem: '<S2>/TranslationalDynamics' */
+/* End of Outputs for SubSystem: '<S1>/DKE Chaser' */
+/* End of Outputs for SubSystem: '<Root>/Real World' */
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 6, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutput0LocalVars", localVarDecl)>
+%assign ::GlobalCurrentTID = []
+%endif
+%if tid == 1
+%assign ::GlobalCurrentTID = 1
+%<SLibCGIRAccessLocalVar(9, 1)> %% rtb_angular_vel
+%<SLibCGIRAccessLocalVar(11, 1)> %% rtb_angle
+%<SLibCGIRAccessLocalVar(10, 1)> %% rtb_angular_acc
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T rtb_Sum_j[3];
+real_T tmp[3];
+int32_T i;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+%assign tlcOutputsFcnOfS11B6 = OpaqueTLCBlockFcn("Outputs", 11, 6, 0, 7)
+/* Outputs for Atomic SubSystem: '<Root>/Real World' */
+/* Outputs for Atomic SubSystem: '<S1>/DKE Environment ' */
+/* Constant: '<S3>/Constant1' */
+AIM_Simulator_beta_B.Constant1[0] = AIM_Simulator_beta_P.Constant1_Value[0];
+AIM_Simulator_beta_B.Constant1[1] = AIM_Simulator_beta_P.Constant1_Value[1];
+AIM_Simulator_beta_B.Constant1[2] = AIM_Simulator_beta_P.Constant1_Value[2];
+/* Constant: '<S3>/Constant2' */
+AIM_Simulator_beta_B.Constant2[0] = AIM_Simulator_beta_P.Constant2_Value[0];
+AIM_Simulator_beta_B.Constant2[1] = AIM_Simulator_beta_P.Constant2_Value[1];
+AIM_Simulator_beta_B.Constant2[2] = AIM_Simulator_beta_P.Constant2_Value[2];
+/* Outputs for Atomic SubSystem: '<S3>/3DoF Rotational Dynamics Secondary Body' */
+/* DiscreteIntegrator: '<S19>/Discrete-Time Integrator' */
+rtb_angular_vel[0] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_c[0];
+rtb_angular_vel[1] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_c[1];
+rtb_angular_vel[2] = AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_c[2];
+/* Product: '<S19>/Divide' incorporates:
+ *  Constant: '<S19>/Inertia'
+ */
+for (i = 0; i < 3; i++) {
+    rtb_Sum_j[i] = AIM_Simulator_beta_P.DoFRotationalDynamicsSecondaryB[i + 6] * rtb_angular_vel[2] + (AIM_Simulator_beta_P.DoFRotationalDynamicsSecondaryB[i + 3] * rtb_angular_vel[1] + AIM_Simulator_beta_P.DoFRotationalDynamicsSecondaryB[i] * rtb_angular_vel[0]);
+}
+/* End of Product: '<S19>/Divide' */
+
+/* Sum: '<S19>/Sum' incorporates:
+ *  Constant: '<S3>/Constant'
+ *  Product: '<S27>/i x j'
+ *  Product: '<S27>/j x k'
+ *  Product: '<S27>/k x i'
+ *  Product: '<S28>/i x k'
+ *  Product: '<S28>/j x i'
+ *  Product: '<S28>/k x j'
+ *  Sum: '<S26>/Sum'
+ */
+tmp[0] = AIM_Simulator_beta_P.Constant_Value_j[0] - (rtb_Sum_j[1] * rtb_angular_vel[2] - rtb_Sum_j[2] * rtb_angular_vel[1]);
+tmp[1] = AIM_Simulator_beta_P.Constant_Value_j[1] - (rtb_Sum_j[2] * rtb_angular_vel[0] - rtb_Sum_j[0] * rtb_angular_vel[2]);
+tmp[2] = AIM_Simulator_beta_P.Constant_Value_j[2] - (rtb_Sum_j[0] * rtb_angular_vel[1] - rtb_Sum_j[1] * rtb_angular_vel[0]);
+/* Product: '<S19>/Divide1' */
+%if SLibCG_FcnCallArgAccessed(0,7,0,2)
+%<SLibCGIRAccessLocalVar(10, 1)> %% rtb_angular_acc
+%endif
+
+%<(SLibCGCallSubFcn("rt_mldivide_U1d3x3_U2d_9O8lG8ax", ["AIM_Simulator_beta_P.DoFRotationalDynamicsSecondaryB", "tmp", "rtb_angular_acc"], 0, 7, 0))>;
+/* Math: '<S19>/Math Function' incorporates:
+ *  Constant: '<S19>/Inertia1'
+ *  DiscreteIntegrator: '<S19>/Discrete-Time Integrator1'
+ */
+rtb_angle[0] = %<(SLibCGCallSubFcn("rt_modd_snf", ["AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_b[0]", "AIM_Simulator_beta_P.Inertia1_Value"], 0, 7, 1))>;
+rtb_angle[1] = %<(SLibCGCallSubFcn("rt_modd_snf", ["AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_b[1]", "AIM_Simulator_beta_P.Inertia1_Value"], 0, 7, 2))>;
+rtb_angle[2] = %<(SLibCGCallSubFcn("rt_modd_snf", ["AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_b[2]", "AIM_Simulator_beta_P.Inertia1_Value"], 0, 7, 3))>;
+/* Update for DiscreteIntegrator: '<S19>/Discrete-Time Integrator' */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_c[0] += AIM_Simulator_beta_P.DiscreteTimeIntegrator_gainva_f * rtb_angular_acc[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_c[1] += AIM_Simulator_beta_P.DiscreteTimeIntegrator_gainva_f * rtb_angular_acc[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator_DSTATE_c[2] += AIM_Simulator_beta_P.DiscreteTimeIntegrator_gainva_f * rtb_angular_acc[2];
+/* Update for DiscreteIntegrator: '<S19>/Discrete-Time Integrator1' */
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_b[0] += AIM_Simulator_beta_P.DiscreteTimeIntegrator1_gainv_k * rtb_angular_vel[0];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_b[1] += AIM_Simulator_beta_P.DiscreteTimeIntegrator1_gainv_k * rtb_angular_vel[1];
+AIM_Simulator_beta_DW.DiscreteTimeIntegrator1_DSTAT_b[2] += AIM_Simulator_beta_P.DiscreteTimeIntegrator1_gainv_k * rtb_angular_vel[2];
+/* End of Outputs for SubSystem: '<S3>/3DoF Rotational Dynamics Secondary Body' */
+%if !WHITE_SPACE(tlcOutputsFcnOfS11B6)
+%<tlcOutputsFcnOfS11B6>\
+/* End of Outputs for SubSystem: '<S1>/DKE Environment ' */
+/* End of Outputs for SubSystem: '<Root>/Real World' */
+%endif
+%closefile cfgTxt
+%<cfgTxt>
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 7, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutput1LocalVars", localVarDecl)>
+%assign ::GlobalCurrentTID = []
+%endif
+%endfunction
