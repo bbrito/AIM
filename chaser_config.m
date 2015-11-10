@@ -44,7 +44,7 @@
 
 %% Barycenter Initial conditions in Rotating Frame
 
- Chaser.ModelData.x0_BC=[-1.433399298673518e+03;0;0]; %L3 Point
+ Chaser.ModelData.x0_BC=x4;%[-1.433399298673518e+03;0;0]; %L3 Point
 %Chaser.ModelData.x0_SC_BC=[-9.240780985807878e+02;0;0]; %L2 Point
 Chaser.ModelData.v0_BC=[0.0;0;0];
 

@@ -71,7 +71,7 @@ model_obj = get_param(simulator_model_name,'Object');
 
 %% Initialisation Configuration Files
 disp('[1]Initialisation Files');
-stop_time=6000;
+stop_time=60000;
 set_param(simulator_model_name, 'StopTime', 'stop_time');
 
 target_config;
